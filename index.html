@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>StudySqr</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script>
+    $.ajax({
+      url:"https://watstudy.herokuapp.com/api/all1/",
+      type: 'GET',
+      dataType: "text",
+      success : function(data){
+        var pee = JSON.parse(data);
+        console.log(pee);
+        var tbl=$("<table align=\"center\" bgcolor=\"#F5ECCE\">").attr("id","mytable");
+        $("#new").append(tbl);
+
+        var min = function(a,b){
+          if (a < b){
+            return a;
+          } else {
+            return b;
+          }
+        }
+
+        var peemin = min(pee.length, 10);
+        if (peemin != 0){
+          for(var i=0;i<peemin;i++)
+          {
+            var tr="<tr>";
+            var td1="<td align=\"right\">"+pee[i]["coursePrefix"]+" "+pee[i]["courseNumber"]+"</td>";
+            var td2="<td>"+" at "+"</td>";
+            var td3="<td>"+pee[i]["location"]+"</td></tr>";
+
+            $("#mytable").append(tr+td1+td2+td3);
+
+          }
+
+        },
+        error: function(error){
+          console.log("error");
+        }
+      }else {
+          var tr = "<td>";
+          var td1 = "<td align=\"center\">"+ " No sessions were found " +"</td>";
+          $("#mytable").append(tr+td1);
+      }
+
+    });
+  </script>
+
+  </head>
+  <body>
+    <div id="header">
+      <!--<h1>StudySqr</h1>-->
+      <img src="../img/logo.jpg" alt="Logo" style="width:250px;height:100px;">
+    </div>
+
+
+<!-- Maybe we dont need a navigator -->
+    <div id="nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="pages/about.html">About</a></li>
+        <li><a href="#contact">Download</a></li>
+        <li><a href="pages/contact.html">Contact</a></li>
+      </ul>
+    </div>
+
+
+    <div id="sector1">
+      <h2> Are you looking for a study group?</h2>
+      <h3> Most recent study sessions</h3>
+    </div>
+
+
+    <div id="new">
+    </div>
+
+
+
+    <div id="hook">
+      Download the application
+    </div>
+
+    <div id="link">
+      <h3><a href="">
+      <img src="../img/Gplay.png" alt="Google Play" style="width:100px;height:100px;">
+      </a></h3>
+    <div>
+
+    <div id="footer">
+      Copyright © jpap.com
+    </div>
+
+
+  </body>
+</html>
